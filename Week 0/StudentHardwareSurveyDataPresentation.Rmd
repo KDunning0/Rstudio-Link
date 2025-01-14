@@ -1,0 +1,108 @@
+---
+title: "Student Hardware Survey Data"
+author: "Katie Dunning"
+date: "2025-01-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Histogram #1, Student Operating Systems
+```{r Histo 1, echo=FALSE, message=FALSE}
+# Call the installed packages.
+library(tidyverse)
+library(ggplot2)
+# Read the file.
+studentdat.df<-read.csv("2023-06-13-survey.csv")
+# First Histogram: operating system
+ggplot(studentdat.df, aes(x = Operating.System)) +
+  geom_bar(fill = "steelblue") +
+  theme_minimal() +
+  labs(title = "Student Operating Systems",
+       x = "Operating System",
+       y = "Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+The majority of people in the 2023 class used Mac OS, but a decent number of people also used Windows.
+There is one outlier of someone using MAC and Linux operating systems.
+
+### Histogram #2, CPU Cycle Rates in GHz
+```{r Histo 2, echo=FALSE, message=FALSE, warning=FALSE}
+# Second Histogram: CPU Cycle Rate
+ggplot(studentdat.df, aes(x = CPU.Cycle.Rate..in.GHz.)) +
+  geom_histogram(fill = "orange", color = "white") +
+  xlim(0, 5) +
+  theme_minimal() +
+  labs(title = "Student CPU Cycle Rates in GHz",
+       x = "CPU Cycle Rate in GHz",
+       y = "Count")
+```
+
+Most students had a GPU Cycle rate that fell between 1 and 4.  One person had a CPU cycle rate over 4.5 GHz.
+An outlier was removed from the sample set, which was 2133 GHz.  I believe this value was likely made in error.
+
+### Histogram #3, CPU Number of Cores
+```{r Histo 3, echo=FALSE, message=FALSE, warning=FALSE}
+# Third Histogram: CPU Number of Cores
+ggplot(studentdat.df, aes(x = CPU.Number.of.Cores..int.)) +
+  geom_histogram(fill = "purple", color = "white") +
+  scale_x_continuous(breaks = seq(0, 12, by = 1)) +
+  theme_minimal() +
+  labs(title = "Student CPU Number of Cores",
+       x = "CPU Number of Cores",
+       y = "Count")
+```
+
+A majority of students had 2, 4, or 8 cores for their CPU.
+Several students have 10 cores and a couple of students had has high as 12 cores.
+
+### Histogram #4, Student RAM in GB
+```{r Histo 4, echo=FALSE, message=FALSE, warning=FALSE}
+# Fourth Histogram: Ram in GB
+ggplot(studentdat.df, aes(x = RAM..in.GB.)) +
+  geom_histogram(fill = "green", color = "white") +
+  scale_x_continuous(breaks = seq(0, 70, by = 4)) +
+  theme_minimal() +
+  labs(title = "Student RAM in GB",
+       x = "RAM in GB",
+       y = "Count")
+```
+
+Only one student had 4 GB of RAM, while over thirty students have 8 GB of RAM and over twenty students have 16 GB of RAM.
+A few students have 32 GB of RAM and a couple had 64 GB of RAM.
+
+### Histogram #5, Student Hard Drive in GB
+```{r Histo 5, echo=FALSE, message=FALSE, warning=FALSE}
+# Fifth Histogram: Hard Drive size in GB
+ggplot(studentdat.df, aes(x = Hard.Drive.Size..in.GB.)) +
+  geom_histogram(fill = "red", color = "white") +
+  scale_x_continuous(breaks = seq(0, 4200, by = 200)) +
+  theme_minimal() +
+  labs(title = "Student Hard Drive Size",
+       x = "Hard Drive Size",
+       y = "Count")
+```
+
+The hard drive size of most of the class was under 600 GB.  Only approximately nine students had hard drives over this size.
+
+### Histogram #6, GPU CUDA Number of Cores
+```{r Histo 6, echo=FALSE, message=FALSE, warning=FALSE}
+# Sixth Histogram: GPU CUDA Number of Cores
+ggplot(studentdat.df, aes(x = GPU.CUDA.Number.of.Cores..int.)) +
+  geom_histogram(fill = "yellow", color = "white") +
+  scale_x_continuous(breaks = seq(0, 6000, by = 300)) +
+  theme_minimal() +
+  labs(title = "Student GPU CUDA Number of Cores",
+       x = "GPU CUDA Number of Cores",
+       y = "Count")
+```
+
+Most students did not have any CUDA cores in their computers.  Of those that did have CUDA cores, most of them had less than 500 of them.
+A few students had 1,000 cores or higher.
+
+### GPU Short Description
+
+The GPU Short descriptions weren't suitable for use in a histogram.  Intel GPUs were by far the most common, but NVIDIA and Apple showed up occasionally as well.  Several students had integrated graphics, which is what "none" and "0" are being counted as.
